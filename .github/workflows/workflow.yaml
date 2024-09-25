@@ -20,13 +20,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/cache@v4
-        id: cache
         with:
           path: src
           key: cache-src
       - run: cat src/test/index.js
       - run: |
           echo "console.log('testing level1_a');" >> src/test/index.js
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: src
+          key: cache-src
   level1_b:
     needs: [init]
     runs-on: ubuntu-latest
