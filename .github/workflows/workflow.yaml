@@ -1,0 +1,27 @@
+on:
+  push:
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p src/test
+          echo "console.log('testing');" > src/test/index.js
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: src
+          key: cache-src
+  level1_a:
+    needs: [init]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: src
+          key: cache-src
+      - run: cat src/test/index.js
