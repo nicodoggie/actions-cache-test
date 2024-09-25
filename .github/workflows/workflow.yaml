@@ -1,5 +1,11 @@
 on:
   push:
+  
+.level3_deps:
+  values: &level3_deps
+  - level2_a_a
+  - level2_a_b
+
 jobs:
   init:
     runs-on: ubuntu-latest
@@ -68,7 +74,7 @@ jobs:
       - run: |
           echo "console.log('testing level2_a_b');" >> src/test/index.js
   level3_a_a_a:
-    needs: [level2_a_a, level2_a_b]
+    needs: *level3_deps
     runs-on: ubuntu-latest
     steps:
       - uses: actions/cache@v4
