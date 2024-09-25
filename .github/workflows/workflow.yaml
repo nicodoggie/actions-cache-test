@@ -25,3 +25,53 @@ jobs:
           path: src
           key: cache-src
       - run: cat src/test/index.js
+      - run: |
+          echo "console.log('testing level1_a');" >> src/test/index.js
+  level1_b:
+    needs: [init]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: src
+          key: cache-src
+      - run: cat src/test/index.js
+      - run: |
+          echo "console.log('testing level1_b');" >> src/test/index.js
+  level2_a_a:
+    needs: [level1_a]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: src
+          key: cache-src
+      - run: cat src/test/index.js
+      - run: |
+          echo "console.log('testing level2_a_a');" >> src/test/index.js
+  level2_a_b:
+    needs: [level1_a]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: src
+          key: cache-src
+      - run: cat src/test/index.js
+      - run: |
+          echo "console.log('testing level2_a_b');" >> src/test/index.js
+  level3_a_a_a:
+    needs: [level2_a_a, level2_a_b]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: src
+          key: cache-src
+      - run: cat src/test/index.js
+      - run: |
+          echo "console.log('testing level3_a_a_a');" >> src/test/index.js
